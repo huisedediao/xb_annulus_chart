@@ -14,12 +14,12 @@ typedef XBAnnulusChartHoverWidthGetter = double Function(
 typedef XBAnnulusChartHoverHeightGetter = double Function(
     XBAnnulusChartModel? model);
 
-double XBAnnulusChartNameMarkWidth = 5;
+const double xbAnnulusChartNameMarkWidth = 5;
 
-double xbAnnulusChartDefHoverPaddingH = 8;
-double xbAnnulusChartDefHoverPaddingV = 3;
+const double xbAnnulusChartDefHoverPaddingH = 8;
+const double xbAnnulusChartDefHoverPaddingV = 3;
 
-Color xbAnnulusChartDefHoverColor = Colors.black;
+const Color xbAnnulusChartDefHoverColor = Colors.black;
 
 double xbAnnulusChartTotal(List<XBAnnulusChartModel> models) {
   double ret = 0;
@@ -51,7 +51,7 @@ TextStyle xbAnnulusChartDefHoverContentStyle = const TextStyle(
   fontSize: 12,
 );
 
-Widget xbAnnulusChartDefBottomBuder(List<XBAnnulusChartModel> models) {
+Widget xbAnnulusChartDefBottomBuilder(List<XBAnnulusChartModel> models) {
   final total = xbAnnulusChartTotal(models);
   return LayoutBuilder(
     builder: (context, constraints) {
@@ -84,10 +84,11 @@ Widget xbAnnulusChartDefBottomBuder(List<XBAnnulusChartModel> models) {
   );
 }
 
-Widget xbAnnulusChartDefHoverBuder(XBAnnulusChartModel? model) {
+Widget xbAnnulusChartDefHoverBuilder(XBAnnulusChartModel? model) {
   return ClipRRect(
     borderRadius: BorderRadius.circular(5),
     child: Container(
+      alignment: Alignment.center,
       width: xbAnnulusChartTextWidth(xbAnnulusChartHoverContent(model),
                   xbAnnulusChartDefHoverContentStyle)
               .width +
@@ -97,19 +98,9 @@ Widget xbAnnulusChartDefHoverBuder(XBAnnulusChartModel? model) {
               .height +
           xbAnnulusChartDefHoverPaddingV * 2,
       color: xbAnnulusChartDefHoverColor,
-      child: Padding(
-        padding: EdgeInsets.only(
-            top: xbAnnulusChartDefHoverPaddingV,
-            left: xbAnnulusChartDefHoverPaddingH,
-            right: xbAnnulusChartDefHoverPaddingH,
-            bottom: xbAnnulusChartDefHoverPaddingV),
-        child: Container(
-          alignment: Alignment.center,
-          child: Text(
-            xbAnnulusChartHoverContent(model),
-            style: xbAnnulusChartDefHoverContentStyle,
-          ),
-        ),
+      child: Text(
+        xbAnnulusChartHoverContent(model),
+        style: xbAnnulusChartDefHoverContentStyle,
       ),
     ),
   );

@@ -138,7 +138,7 @@ class _XBAnnulusChartState extends State<XBAnnulusChart> {
     if (widget.hoverBuilder != null) {
       return widget.hoverBuilder!(_selectedModel);
     }
-    return xbAnnulusChartDefHoverBuder(_selectedModel);
+    return xbAnnulusChartDefHoverBuilder(_selectedModel);
   }
 
   double _arrowPaddingLeft(double dx, double hoverWidth) {
@@ -183,6 +183,6 @@ class _XBAnnulusChartState extends State<XBAnnulusChart> {
     if (widget.bottomWidgetBuilder != null) {
       return widget.bottomWidgetBuilder!(widget.models);
     }
-    return xbAnnulusChartDefBottomBuder(widget.models);
+    return xbAnnulusChartDefBottomBuilder(widget.models);
   }
 }
