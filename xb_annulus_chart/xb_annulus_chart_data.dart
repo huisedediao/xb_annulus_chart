@@ -1,8 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:xb_custom_widget_cabin/annulus_chart/xb_annulus_chart/xb_annulus_chart_config.dart';
-import 'package:xb_custom_widget_cabin/annulus_chart/xb_annulus_chart/xb_annulus_chart_model.dart';
+
+import 'xb_annulus_chart_config.dart';
+import 'xb_annulus_chart_model.dart';
 
 class XBAnnulusChartData extends StatefulWidget {
   final double width;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:xb_custom_widget_cabin/annulus_chart/xb_annulus_chart/xb_annulus_chart_config.dart';
+
+import 'xb_annulus_chart_config.dart';
 
 class XBAnnulusChartNameWidget extends StatelessWidget {
   final Color color;

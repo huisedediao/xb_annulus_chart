@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:xb_custom_widget_cabin/annulus_chart/xb_annulus_chart/xb_annulus_chart_model.dart';
-import 'package:xb_custom_widget_cabin/annulus_chart/xb_annulus_chart/xb_annulus_chart_name_widget.dart';
+
+import 'xb_annulus_chart_model.dart';
+import 'xb_annulus_chart_name_widget.dart';
 
 typedef XBAnnulusBottomWidgetBuilder = Widget Function(
     List<XBAnnulusChartModel> models);

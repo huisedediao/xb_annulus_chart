@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:xb_custom_widget_cabin/annulus_chart/xb_annulus_chart/xb_annulus_chart_arrow.dart';
-import 'package:xb_custom_widget_cabin/annulus_chart/xb_annulus_chart/xb_annulus_chart_config.dart';
-import 'package:xb_custom_widget_cabin/annulus_chart/xb_annulus_chart/xb_annulus_chart_data.dart';
-import 'package:xb_custom_widget_cabin/annulus_chart/xb_annulus_chart/xb_annulus_chart_model.dart';
+
+import 'xb_annulus_chart_arrow.dart';
+import 'xb_annulus_chart_config.dart';
+import 'xb_annulus_chart_data.dart';
+import 'xb_annulus_chart_model.dart';
 
 class XBAnnulusChart extends StatefulWidget {
   /// 环形的半径，如果不传，则为控件宽度的四分之一
