@@ -9,19 +9,29 @@ class XBAnnulusChart extends StatefulWidget {
   final double? annulusRadius;
   final List<XBAnnulusChartModel> models;
   final XBAnnulusBottomWidgetBuilder? bottomWidgetBuilder;
-  final XBAnnulusChartHoverBuilder hoverBuilder;
-  final XBAnnulusChartHoverWidth hoverWidth;
-  final XBAnnulusChartHoverHeight hoverHeight;
-  final Color hoverColor;
+  final XBAnnulusChartHoverBuilder? hoverBuilder;
+  final XBAnnulusChartHoverWidthGetter? hoverWidthGetter;
+  final XBAnnulusChartHoverHeightGetter? hoverHeightGetter;
+  final Color? hoverColor;
   const XBAnnulusChart(
       {required this.models,
-      required this.hoverBuilder,
-      required this.hoverWidth,
-      required this.hoverHeight,
-      required this.hoverColor,
+      this.hoverBuilder,
+      this.hoverWidthGetter,
+      this.hoverHeightGetter,
+      this.hoverColor,
       this.bottomWidgetBuilder,
       this.annulusRadius,
-      super.key});
+      super.key})
+      : assert(
+            (hoverBuilder == null &&
+                    hoverWidthGetter == null &&
+                    hoverHeightGetter == null &&
+                    hoverColor == null) ||
+                (hoverBuilder != null &&
+                    hoverWidthGetter != null &&
+                    hoverHeightGetter != null &&
+                    hoverColor != null),
+            "如果定制hover，需要全套定制");
 
   @override
   State<XBAnnulusChart> createState() => _XBAnnulusChartState();
@@ -78,22 +88,20 @@ class _XBAnnulusChartState extends State<XBAnnulusChart> {
             Visibility(
               visible: _selectedModel != null,
               child: Positioned(
-                  top: _hoverTop(_touchPosition?.dy ?? 0,
-                      widget.hoverHeight(_selectedModel)),
-                  left: _hoverLeft(_touchPosition?.dx ?? 0,
-                      widget.hoverWidth(_selectedModel)),
+                  top: _hoverTop(_touchPosition?.dy ?? 0, _hoverHeight()),
+                  left: _hoverLeft(_touchPosition?.dx ?? 0, _hoverWidth()),
                   child: IgnorePointer(
                       child: Column(
                     children: [
-                      widget.hoverBuilder(_selectedModel),
+                      _hover(),
                       Padding(
                         padding: EdgeInsets.only(
-                            left: _arrowPaddingLeft(_touchPosition?.dx ?? 0,
-                                widget.hoverWidth(_selectedModel)),
-                            right: _arrowPaddingRight(_touchPosition?.dx ?? 0,
-                                widget.hoverWidth(_selectedModel))),
+                            left: _arrowPaddingLeft(
+                                _touchPosition?.dx ?? 0, _hoverWidth()),
+                            right: _arrowPaddingRight(
+                                _touchPosition?.dx ?? 0, _hoverWidth())),
                         child: XBAnnulusChartArrow(
-                          color: widget.hoverColor,
+                          color: _hoverColor(),
                         ),
                       )
                     ],
@@ -103,6 +111,34 @@ class _XBAnnulusChartState extends State<XBAnnulusChart> {
         );
       },
     );
+  }
+
+  Color _hoverColor() {
+    if (widget.hoverColor != null) {
+      return widget.hoverColor!;
+    }
+    return xbAnnulusChartDefHoverColor;
+  }
+
+  double _hoverWidth() {
+    if (widget.hoverWidthGetter != null) {
+      return widget.hoverWidthGetter!(_selectedModel);
+    }
+    return xbAnnulusChartDefHoverWidthGetter(_selectedModel);
+  }
+
+  double _hoverHeight() {
+    if (widget.hoverHeightGetter != null) {
+      return widget.hoverHeightGetter!(_selectedModel);
+    }
+    return xbAnnulusChartDefHoverHeightGetter(_selectedModel);
+  }
+
+  Widget _hover() {
+    if (widget.hoverBuilder != null) {
+      return widget.hoverBuilder!(_selectedModel);
+    }
+    return xbAnnulusChartDefHoverBuder(_selectedModel);
   }
 
   double _arrowPaddingLeft(double dx, double hoverWidth) {
@@ -147,6 +183,6 @@ class _XBAnnulusChartState extends State<XBAnnulusChart> {
     if (widget.bottomWidgetBuilder != null) {
       return widget.bottomWidgetBuilder!(widget.models);
     }
-    return Container();
+    return xbAnnulusChartDefBottomBuder(widget.models);
   }
 }
